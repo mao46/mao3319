@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>開始測驗 | Entry</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #e6f0ff, #ffffff);
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .container {
+      text-align: center;
+      padding: 40px;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+    .intro {
+      font-size: 1.2rem;
+      line-height: 1.9;
+      color: #444;
+      text-align: left;
+      margin-bottom: 30px;
+    }
+    .intro strong {
+      color: #222;
+    }
+    h1 {
+      margin-bottom: 20px;
+      font-size: 2rem;
+      color: #333;
+    }
+    .start-btn {
+      padding: 15px 30px;
+      font-size: 18px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .start-btn:hover {
+      background-color: #2980b9;
+    }
+    .check-form {
+      max-width: 500px;
+      margin: auto;
+      padding: 30px;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      text-align: left;
+    }
+    .error-feedback {
+      font-size: 1.25rem;
+      color: red;
+      text-align: center;
+      margin-top: 20px;
+    }
+    .question {
+      margin-bottom: 20px;
+    }
+    .check-form h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+    .check-form label {
+      display: block;
+      margin: 5px 0;
+      font-size: 16px;
+    }
+    #scenarioImage {
+      max-width: 100%;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      display: none;
+    }
+    #quizForm {
+      display: none;
+    }
+    .popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
+    .popup {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      max-width: 400px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+    .popup button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .popup button:hover {
+      background-color: #2980b9;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="intro">
+      <p>各位同學您好：</p>
+      <p>首先感謝您的協助，本測驗旨在瞭解 <strong>AI 智能客服</strong> 的溝通方式，對消費者感受服務品質的影響。此為 <strong>不記名測驗</strong>，請根據您的實際感受進行填答。</p>
+      <p>完成作答並確認無遺漏後，我們將致贈 <strong>便利商店 50 元禮券</strong> 乙張，以表感謝之意。</p>
+      <p style="text-align: right; margin-top: 20px;">國貿系 陳美如 敬上</p>
+      <hr style="margin: 30px 0;">
+      <p><strong>註：</strong><strong>AI 智能客服</strong> 是一種軟體程式，經常應用於企業網站、社群平台或通訊軟體中，為消費者提供即時性服務。</p>
+    </div>
+    <button class="start-btn" onclick="showCheckForm()">開始測驗</button>
+  </div>
+
+  <div class="check-form" id="checkForm" style="display:none;">
+    <h2>請完成以下檢查題</h2>
+    <img id="scenarioImage" src="" alt="情境圖片">
+    <form id="quizForm">
+      <div class="question">
+        <p>1. 智能客服的溝通方式：</p>
+        <label><input type="radio" name="communication" value="cold" required> 較冰冷直接</label><br>
+        <label><input type="radio" name="communication" value="warm"> 較溫暖友善</label>
+      </div>
+
+      <div class="question">
+        <p>2. 獲得補償的形式：</p>
+        <label><input type="radio" name="compensation" value="discount" required> 折價卷+口頭道歉</label><br>
+        <label><input type="radio" name="compensation" value="apology"> 只有口頭道歉</label>
+      </div>
+
+      <div class="question">
+        <p>3. 發生服務失誤的形式：</p>
+        <label><input type="radio" name="error" value="color" required> 商品準時送達，但顏色錯誤</label><br>
+        <label><input type="radio" name="error" value="missing"> 完全沒有收到商品</label>
+      </div>
+
+      <button type="submit" class="start-btn">送出檢查</button>
+    </form>
+    <div id="errorMessage" class="error-feedback" style="display: none;"></div>
+  </div>
+
+  <div id="popupOverlay" class="popup-overlay">
+    <div class="popup">
+      <p>檢查題答案有誤，請重新確認喔！</p>
+      <button onclick="closePopup()">重新觀看圖片</button>
+    </div>
+  </div>
+
+  <script>
+   const googleForms = [
+  "https://forms.gle/WkVykrLNXxS3dYMQ7", // 表單 1
+  "https://forms.gle/AjJkKo1L1gXoKvMR6", // 表單 2
+  "https://forms.gle/M1J8Qz5UzqFiUJYGA", // 表單 3
+  "https://forms.gle/vDYX4iaaHXwf84yb6", // 表單 4
+  "https://forms.gle/75h3rAXViyY4arFg9", // 表單 5
+  "https://forms.gle/Du5YBqZR9HaEqFTU9", // 表單 6
+  "https://forms.gle/GfzPXdghPh61tnKX9", // 表單 7
+  "https://forms.gle/nPH3kwV1KzGkw8mZ8"  // 表單 8
+];
+
+    const scenarioImages = [
+      "image/1.jpg",
+      "image/2.jpg",
+      "image/3.jpg",
+      "image/4.jpg",
+      "image/5.jpg",
+      "image/6.jpg",
+      "image/7.jpg",
+      "image/8.jpg"
+    ];
+
+    let selectedScenarioIndex = null;
+
+    function showCheckForm() {
+      document.getElementById('errorMessage').style.display = 'none';
+      document.querySelector('.container').style.display = 'none';
+      document.getElementById('checkForm').style.display = 'block';
+
+      selectedScenarioIndex = Math.floor(Math.random() * scenarioImages.length);
+      const imgElement = document.getElementById('scenarioImage');
+      imgElement.src = scenarioImages[selectedScenarioIndex];
+      imgElement.style.display = 'block';
+      document.getElementById('quizForm').style.display = 'block';
+      console.log("隨機選到情境圖片：" + (selectedScenarioIndex + 1));
+    }
+
+    function showPopup() {
+      document.getElementById('popupOverlay').style.display = 'flex';
+    }
+
+    function closePopup() {
+      document.getElementById('popupOverlay').style.display = 'none';
+      // 重新顯示圖片（可加強效果）
+      const imgElement = document.getElementById('scenarioImage');
+      imgElement.scrollIntoView({ behavior: "smooth" });
+    }
+
+    document.getElementById('quizForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const communication = document.querySelector('input[name="communication"]:checked')?.value;
+      const compensation = document.querySelector('input[name="compensation"]:checked')?.value;
+      const error = document.querySelector('input[name="error"]:checked')?.value;
+
+      const correctAnswers = [
+        { communication: "warm", compensation: "discount", error: "missing" }, // 1
+        { communication: "warm", compensation: "apology", error: "missing" },   // 2
+        { communication: "warm", compensation: "discount", error: "color" },    // 3
+        { communication: "warm", compensation: "apology", error: "color" },     // 4
+        { communication: "cold", compensation: "discount", error: "missing" },  // 5
+        { communication: "cold", compensation: "apology", error: "missing" },   // 6
+        { communication: "cold", compensation: "discount", error: "color" },    // 7
+        { communication: "cold", compensation: "apology", error: "color" }      // 8
+      ];
+
+      if (selectedScenarioIndex === null) {
+        alert("請先選擇情境！");
+        return;
+      }
+
+      const expected = correctAnswers[selectedScenarioIndex];
+
+      if (communication === expected.communication && compensation === expected.compensation && error === expected.error) {
+        document.getElementById('errorMessage').style.display = 'none';
+        window.location.href = googleForms[selectedScenarioIndex];
+      } else {
+        showPopup();
+      }
+    });
+  </script>
+</body>
+</html>
