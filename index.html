@@ -66,7 +66,11 @@
       margin-top: 20px;
     }
     .question {
-      margin-bottom: 20px;
+      margin-bottom: 14px;
+      padding: 12px 16px;
+      background-color: #f9f9f9;
+      border-left: 4px solid #3498db;
+      border-radius: 6px;
     }
     .check-form h2 {
       text-align: center;
@@ -75,7 +79,7 @@
     }
     .check-form label {
       display: block;
-      margin: 5px 0;
+      margin: 0px 0;
       font-size: 16px;
     }
     #scenarioImage {
@@ -83,6 +87,16 @@
       border-radius: 12px;
       margin-bottom: 20px;
       display: none;
+    }
+    .context-hint {
+      font-size: 1.1rem;
+      background-color: #f0f7ff;
+      border-left: 6px solid #3498db;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      color: #333;
+      line-height: 1.6;
     }
     #quizForm {
       display: none;
@@ -137,6 +151,10 @@
 
   <div class="check-form" id="checkForm" style="display:none;">
     <h2>請完成以下檢查題</h2>
+    <div class="context-hint">
+      以下是一個 <strong>AI 智能客服</strong> 與消費者的對話情境，<br />內容是關於詢問物流到貨狀況，<br />
+      請先假設您是情境中的消費者，並繼續往下閱讀……
+    </div>
     <img id="scenarioImage" src="" alt="情境圖片">
     <form id="quizForm">
       <div class="question">
@@ -170,16 +188,16 @@
   </div>
 
   <script>
-    const googleForms = [
-    "https://forms.gle/cWTRh6ihJF3EKtSz5", // 表單 1
-    "https://forms.gle/SZF6XMvdmVhhNKok6", // 表單 2
-    "https://forms.gle/pTrd5dKgtgtJmNdL7", // 表單 3
-    "https://forms.gle/mxEFCBjft6yGgNhL6", // 表單 4
-    "https://forms.gle/dSCvmEtUTrMQyKpc9", // 表單 5
-    "https://forms.gle/DoepHQXriYsaZPZC9", // 表單 6
-    "https://forms.gle/yv2qTAGYQKhqw3TX7", // 表單 7
-    "https://forms.gle/ygYUsFSo33TtaQXu8"  // 表單 8
-  ];
+   const googleForms = [
+  "https://forms.gle/WkVykrLNXxS3dYMQ7", // 表單 1
+  "https://forms.gle/AjJkKo1L1gXoKvMR6", // 表單 2
+  "https://forms.gle/M1J8Qz5UzqFiUJYGA", // 表單 3
+  "https://forms.gle/vDYX4iaaHXwf84yb6", // 表單 4
+  "https://forms.gle/75h3rAXViyY4arFg9", // 表單 5
+  "https://forms.gle/Du5YBqZR9HaEqFTU9", // 表單 6
+  "https://forms.gle/GfzPXdghPh61tnKX9", // 表單 7
+  "https://forms.gle/nPH3kwV1KzGkw8mZ8"  // 表單 8
+];
 
     const scenarioImages = [
       "1.jpg",
