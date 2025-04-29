@@ -139,24 +139,125 @@
 <body>
   <div class="container">
     <div class="intro">
-      <p>各位同學您好：</p>
-      <p>首先感謝您的協助，本測驗旨在瞭解 <strong>AI 智能客服</strong> 的溝通方式，對消費者感受服務品質的影響。此為 <strong>不記名測驗</strong>，請根據您的實際感受進行填答。</p>
-      <p>完成作答並確認無遺漏後，我們將致贈 <strong>便利商店 50 元禮券</strong> 乙張，以表感謝之意。</p>
-      <p style="text-align: right; margin-top: 20px;">國貿系 陳美如 敬上</p>
-      <hr style="margin: 30px 0;">
-      <p><strong>註：</strong><strong>AI 智能客服</strong> 是一種軟體程式，經常應用於企業網站、社群平台或通訊軟體中，為消費者提供即時性服務。</p>
+      <h2>實驗說明</h2>
+      <p>親愛的同學：</p>
+      <p>您好，非常感謝您抽空參加本實驗研究。</p>
+      <p>
+        這個實驗的目的，主要在瞭解 <strong>AI 智能客服</strong> 的溝通方式，對消費者感受服務品質的影響。
+        您接下來閱讀中，所提供的所有意見以及個人資訊，均會受到保護與保密，並僅限於學術研究用途，絕對不會公開，請您放心作答。
+      </p>
+      <p>整個實驗過程，約為 <strong>5分鐘</strong> 左右，總共有三個部分：</p>
+      <ul class="process-list">
+        <li>第一個部分：個案情境閱讀</li>
+        <li>第二個部分：個案情境感受作答</li>
+        <li>第三個部分：個人基本資料</li>
+      </ul>
+      <p>最後，為了感謝您的合作與耐心填答，本研究在確認無誤後，將致贈便利商店 50 元禮券乙張，以表感謝之意。</p>
+      <p>再次感謝您的協助！</p>
+  
+      <hr class="divider">
+  
+      <div class="note">
+        <strong>註：</strong><strong>AI 智能客服</strong> 是一種<strong>軟體程式</strong>，經常應用於企業網站、社群平台或通訊軟體中，為消費者提供即時性服務。
+      </div>
+  
+      <p class="footer">國貿系 陳美如老師 敬上</p>
     </div>
-    <button class="start-btn" onclick="showCheckForm()">開始測驗</button>
+  
+    <button class="start-btn" onclick="showCheckForm()">下一步</button>
   </div>
+  
+  <style>
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to bottom, #e6f0ff, #ffffff);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .container {
+    width: 100%;
+    max-width: 620px;
+    background: #ffffff;
+    padding: 32px 28px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    text-align: left;
+  }
+  
+  .intro {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: #333;
+  }
+  
+  .intro h2 {
+    font-size: 1.8rem;
+    text-align: center;
+    color: #222;
+    margin-bottom: 24px;
+  }
+  
+  .process-list {
+    padding-left: 20px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .divider {
+    margin: 30px 0 20px;
+    border: none;
+    border-top: 1px solid #ccc;
+  }
+  
+  .note {
+    font-size: 0.95rem;
+    color: #666;
+    background: #f9f9f9;
+    padding: 14px 18px;
+    border-left: 4px solid #3498db;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  
+  .footer {
+    text-align: right;
+    margin-top: 20px;
+    font-size: 1rem;
+    color: #444;
+  }
+  
+  .start-btn {
+    display: block;
+    margin: 30px auto 0;
+    padding: 12px 28px;
+    font-size: 16px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .start-btn:hover {
+    background-color: #2980b9;
+  }
+  </style>
 
   <div class="check-form" id="checkForm" style="display:none;">
-    <h2>請完成以下檢查題</h2>
+    <h2>個案情境閱讀</h2>
     <div class="context-hint">
       以下是一個 <strong>AI 智能客服</strong> 與消費者的對話情境，<br />內容是關於詢問物流到貨狀況，<br />
       請先假設您是情境中的消費者，並繼續往下閱讀……
     </div>
     <img id="scenarioImage" src="" alt="情境圖片">
     <form id="quizForm">
+      <h2>請完成以下檢查題</h2>
       <div class="question">
         <p>1. 智能客服的溝通方式：</p>
         <label><input type="radio" name="communication" value="cold" required> 較冰冷直接</label><br>
@@ -188,6 +289,25 @@
   </div>
 
   <script>
+   // 初始化本地端記錄的分配數量
+if (!localStorage.getItem('scenarioCounts')) {
+  const initialCounts = Array(8).fill(0);
+  localStorage.setItem('scenarioCounts', JSON.stringify(initialCounts));
+}
+
+// 選擇當前要使用的 scenarioIndex（平均分配邏輯）
+function selectScenarioIndexByLeastCount() {
+  const counts = JSON.parse(localStorage.getItem('scenarioCounts'));
+  const minCount = Math.min(...counts);
+  const candidates = counts.map((count, idx) => count === minCount ? idx : -1).filter(idx => idx !== -1);
+  const selected = candidates[Math.floor(Math.random() * candidates.length)];
+
+  // 更新計數
+  counts[selected] += 1;
+  localStorage.setItem('scenarioCounts', JSON.stringify(counts));
+  return selected;
+}
+
    const googleForms = [
   "https://forms.gle/WkVykrLNXxS3dYMQ7", // 表單 1
   "https://forms.gle/AjJkKo1L1gXoKvMR6", // 表單 2
@@ -217,7 +337,7 @@
       document.querySelector('.container').style.display = 'none';
       document.getElementById('checkForm').style.display = 'block';
 
-      selectedScenarioIndex = Math.floor(Math.random() * scenarioImages.length);
+      selectedScenarioIndex = selectScenarioIndexByLeastCount();
       const imgElement = document.getElementById('scenarioImage');
       imgElement.src = scenarioImages[selectedScenarioIndex];
       imgElement.style.display = 'block';
